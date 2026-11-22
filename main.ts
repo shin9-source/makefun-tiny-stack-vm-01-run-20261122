@@ -26,15 +26,15 @@ function run(p,q){
    case 2:D[s++]=p[x-4]|p[x-3]<<8|p[x-2]<<16|p[x-1]<<24;break;
    case 3:s--;break;
    case 4:D[s]=D[s-1];s++;break;
-   case 5:{const v=D[s-1];D[s-1]=D[s-2];D[s-2]=v;break;}
+   case 5:[D[s-1],D[s-2]]=[D[s-2],D[s-1]];break;
    case 6:D[s]=D[s-2];s++;break;
-   case 7:{const a=D[s-3];D[s-3]=D[s-2];D[s-2]=D[s-1];D[s-1]=a;break;}
+   case 7:[D[s-3],D[s-2],D[s-1]]=[D[s-2],D[s-1],D[s-3]];break;
    case 23:D[s-1]=-D[s-1]|0;break;
    case 27:D[s-1]=~D[s-1];break;
    case 16:case 17:case 18:case 19:case 20:case 21:case 22:case 24:case 25:case 26:case 28:case 29:case 30:case 32:case 33:case 34:{
-    const b=D[s-1],a=D[s-2];
+    const b=D[s-1];
     if(!b&&op>18&&op<23)return e(4);
-    s-=2;D[s++]=B[op-16](a,b);break;
+    D[s-2]=B[op-16](D[s-2],b);s--;break;
    }
    case 48:case 49:case 50:{
     const r=((p[x-2]|p[x-1]<<8)<<16)>>16;let y=1;
